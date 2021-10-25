@@ -1,0 +1,12 @@
+spring:
+  application:
+    name : IotUserService
+  profiles:
+    active:
+      dev
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+      password: 12345678
+      username: config-server-user
