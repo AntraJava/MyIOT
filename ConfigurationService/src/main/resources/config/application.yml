@@ -3,6 +3,20 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
     healthcheck: true
+  instance:
+    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
 info:
   app:
     name:${java.specification.name}
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+logging:
+  level:
+    com:
+      antra: debug

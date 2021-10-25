@@ -11,6 +11,13 @@
 
     <modules>
         <module>BaseParent</module>
+        <module>ApiGateway</module>
+        <module>ConfigurationService</module>
+        <module>DiscoveryService</module>
+        <module>IotUserService</module>
+        <module>IotDeviceService</module>
+        <module>IotEventService</module>
+        <module>AuthService</module>
     </modules>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>

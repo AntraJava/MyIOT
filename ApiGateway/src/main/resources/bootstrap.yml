@@ -1,6 +1,6 @@
 spring:
   application:
-    name : IotUserService
+    name : ApiGateway
   profiles:
     active:
       dev
@@ -10,3 +10,6 @@ spring:
       fail-fast: true
       password: 12345678
       username: config-server-user
+logging:
+  level:
+   root: debug

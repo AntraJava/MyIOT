@@ -1,0 +1,6 @@
+server:
+  port: 9991
+
+jwt:
+  secret: mysecret
+  validity: 1800

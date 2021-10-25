@@ -1,0 +1,1 @@
+API Route Url : http://localhost:9090/actuator/gateway/routes
