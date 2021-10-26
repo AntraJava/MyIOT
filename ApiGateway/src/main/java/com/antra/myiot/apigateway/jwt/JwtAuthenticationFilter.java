@@ -1,4 +1,4 @@
-package com.antra.myiot.apigateway;
+package com.antra.myiot.apigateway.jwt;
 
 import com.antra.myiot.apigateway.jwt.JwtTokenUtil;
 import io.jsonwebtoken.Claims;

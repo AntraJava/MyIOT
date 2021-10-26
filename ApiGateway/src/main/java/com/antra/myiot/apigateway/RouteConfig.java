@@ -1,5 +1,6 @@
 package com.antra.myiot.apigateway;
 
+import com.antra.myiot.apigateway.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
