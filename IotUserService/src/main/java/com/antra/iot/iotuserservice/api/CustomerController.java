@@ -1,9 +1,9 @@
 package com.antra.iot.iotuserservice.api;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
@@ -25,15 +25,10 @@ public class CustomerController {
 //        return Customer;
 //    }
 //
-//    @RequestMapping(value = "/Customer", method = RequestMethod.POST, consumes = "application/json")
-//    public ResponseEntity<ResponseMessage> createCustomer(@Validated @RequestBody Customer Customer, UriComponentsBuilder ucBuilder) {
-//        if (Customer.getAge() > 200) {
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+//    @PostMapping
+//    public ResponseEntity<ResponseMessage> createCustomer(@Validated @RequestBody RegisterRequest Customer) {
 //        Customer savedCustomer = customerService.saveCustomer(Customer);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setLocation(ucBuilder.path("/api/Customer/{id}").buildAndExpand(Customer.getId()).toUri());
-//        return new ResponseEntity<ResponseMessage>(new ResponseMessage(messages.getMessage("Customer_CREATED"),savedCustomer), headers, HttpStatus.CREATED);
+//        return new ResponseEntity<ResponseMessage>(new ResponseMessage(HttpStatus.CREATED));
 //    }
 //
 //    @RequestMapping(value = "/Customer/{id}", method = RequestMethod.PUT)
