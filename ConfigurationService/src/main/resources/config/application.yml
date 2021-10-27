@@ -20,3 +20,7 @@ logging:
   level:
     com:
       antra: debug
+
+database:
+  mysql:
+    url: 'jdbc://localhost:3306'
