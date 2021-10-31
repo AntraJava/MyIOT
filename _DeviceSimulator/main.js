@@ -3,8 +3,9 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
-const { dialog } = require('electron')
-function createWindow () {
+const prompt = require('electron-prompt');
+
+function createWindow (homeId) {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         width: 600,
@@ -17,24 +18,32 @@ function createWindow () {
             enableRemoteModule: true,
         }
     })
-
     // and load the index.html of the app.
     mainWindow.loadFile('index.html')
    // mainWindow.removeMenu();
-
+    mainWindow.webContents.on('did-finish-load', () => {
+        mainWindow.webContents.send('homeId', homeId);
+    })
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
+    return mainWindow;
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }).then(
-      ()=>createWindow()
-  );
-
-
+    prompt({
+        title: 'Home Id is required',
+        label: 'Please type your home id:',
+        type: 'input'
+    }).then((r) => {
+        if(r === null) {
+            console.log('user cancelled');
+        } else {
+            const mainWindow = createWindow(r);
+        }
+    }).catch(console.error);
 
     app.on('activate', function () {
         // On macOS it's common to re-create a window in the app when the
