@@ -24,9 +24,7 @@ public class JwtAuthenticationController {
 
         UserDetails userDetails = new UserDetails();
         userDetails.setUsername(authenticationRequest.getUsername());
-
         final String token = jwtTokenUtil.generateToken(userDetails);
-
         return ResponseEntity.ok(new JwtResponse(token));
     }
 

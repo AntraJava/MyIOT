@@ -33,10 +33,10 @@ public class CustomerController {
         return new ResponseEntity<>(new ResponseMessage<>(HttpStatus.CREATED), HttpStatus.CREATED);
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
+    public ResponseEntity<ErrorResponse> exceptionHandler(MethodArgumentNotValidException ex) {
         ErrorResponse error = new ErrorResponse();
         error.setErrorCode(HttpStatus.BAD_REQUEST.value());
-        error.setMessage(ex.getMessage());
+        error.setMessage(ex.getFieldError().getField() + " " + ex.getFieldError().getDefaultMessage());
         log.error("Controller Error",ex);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
