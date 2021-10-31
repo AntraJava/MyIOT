@@ -18,8 +18,13 @@ async function getCountry1() {
     });
 }
 window.addEventListener('DOMContentLoaded', () => {
+
+    const notifyServer = (id, status)=>{
+        console.log("send message to server", id, status === ''?'off':status);
+    }
     const home_config= {
         id:123,
+        name: "sweet home",
         devices:[
             {id:"d1", type:"switch", name:"Living Room Light", state:"on"},
             {id:"d2", type:"switch", name:"Christmas Tree Light", state:"off"},
@@ -39,7 +44,8 @@ window.addEventListener('DOMContentLoaded', () => {
         newDevice.text="ON";
         newDevice.addEventListener("click", function (e) {
             this.classList.toggle("on");
-            sound.play("click2.mp3");
+  //          sound.play("click2.mp3");
+            notifyServer(device.id, this.className);
             e.preventDefault();
         });
         if(device.state === 'on') newDevice.setAttribute("class","on");
@@ -52,5 +58,6 @@ window.addEventListener('DOMContentLoaded', () => {
     for (const device of home_config.devices) {
         addDevice(device);
     }
+
 
 })
