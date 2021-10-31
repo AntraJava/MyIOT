@@ -4,6 +4,7 @@
 // It has the same sandbox as a Chrome extension.
 
 const http = require('https')
+const sound = require("sound-play");
 
 async function getCountry1() {
     return new Promise((resolve, reject)=>{
@@ -17,16 +18,6 @@ async function getCountry1() {
     });
 }
 window.addEventListener('DOMContentLoaded', () => {
-    const replaceText = (selector, text) => {
-        const element = document.getElementById(selector)
-        if (element) element.innerText = text
-    }
-
-    for (const dependency of ['chrome', 'node', 'electron']) {
-        replaceText(`${dependency}-version`, process.versions[dependency])
-    }
-
-    getCountry1().then((d)=>console.log("Load state from server............" + d));
     const home_config= {
         id:123,
         devices:[
@@ -48,6 +39,7 @@ window.addEventListener('DOMContentLoaded', () => {
         newDevice.text="ON";
         newDevice.addEventListener("click", function (e) {
             this.classList.toggle("on");
+            sound.play("click2.mp3");
             e.preventDefault();
         });
         if(device.state === 'on') newDevice.setAttribute("class","on");
@@ -60,6 +52,5 @@ window.addEventListener('DOMContentLoaded', () => {
     for (const device of home_config.devices) {
         addDevice(device);
     }
-    document.getElementById("button2").setAttribute("class","on");
 
 })
