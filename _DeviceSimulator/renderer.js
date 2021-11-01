@@ -1,14 +1,36 @@
+require('dotenv').config();
 const http = require('http')
 const sound = require("sound-play");
 const { ipcRenderer } = require('electron')
+const kafka = require('./kafka/kafka-client')
 
-const notifyServer = (id, status)=>{
-    console.log("send message to server", id, status === ''?'off':status);
+const notifyServer = (id, status, homeId)=>{
+    status = status === 'on'?'off':'on';
+    console.log("send message to server", id, status);
+    const message = {deviceId:id, deviceState:status, homeId:homeId};
+    const payload = {key: homeId, value:JSON.stringify(message)};
+    return kafka.sendMessage(process.env.TOPIC_STATE_CHANGE, payload);
+}
+
+const updateDevice = (data) =>{
+    console.log('Got message from server: ',data);
+    const deviceDom = document.getElementById(data.deviceId);
+    if(deviceDom) {
+        if (data.state === 'on') {
+            deviceDom.setAttribute("class", "on");
+        } else if (data.state === 'off') {
+            deviceDom.removeAttribute("class");
+        }
+        // console.log(deviceDom.classList);
+    } else {
+        console.error('Device not found');
+    }
 }
 
 async function getHomeConfig(homeId) {
     return new Promise((resolve, reject)=>{
-        http.get("http://localhost:9090/home/config/123", (res) => {
+        const url = `${process.env.URL_API_GATEWAY}/home/config/${homeId}`;
+        http.get(url, (res) => {
             res.on('data', d => {
                 resolve(JSON.parse(d.toString()))
             })
@@ -32,9 +54,11 @@ const createScreen = (homeId)=>{
         console.log('Got home config', home_config);
         replaceText(`home_id`, home_config.name + "(" + home_config.id + ")");
         for (const device of home_config.devices) {
-            addDevice(device);
+            addDevice(device, homeId);
         }
     }).catch(error => alert(error));
+    kafka.listenToMessage(`${process.env.TOPIC_CONTROL}.${homeId}`, homeId, updateDevice);
+
     // const home_config= {
     //     id:123,
     //     name: "sweet home",
@@ -47,7 +71,7 @@ const createScreen = (homeId)=>{
     // }
 
 }
-const addDevice = (device) => {
+const addDevice = (device, homeId) => {
     const element = document.getElementById("devices_area")
     const newSection = document.createElement("section");
     const newP = document.createElement("p")
@@ -58,9 +82,9 @@ const addDevice = (device) => {
     newDevice.setAttribute("href", "#");
     newDevice.text="ON";
     newDevice.addEventListener("click", function (e) {
-        this.classList.toggle("on");
         //          sound.play("click2.mp3");
-        notifyServer(device.id, this.className);
+        notifyServer(device.id, this.className, homeId).then(()=>this.classList.toggle("on"));
+
         e.preventDefault();
     });
     if(device.state === 'on') newDevice.setAttribute("class","on");

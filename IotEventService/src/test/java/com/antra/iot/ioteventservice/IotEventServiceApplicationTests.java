@@ -1,8 +1,5 @@
 package com.antra.iot.ioteventservice;
 
-import com.antra.iot.ioteventservice.event.EventSender;
-import lombok.Builder;
-import lombok.Data;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,19 +8,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 class IotEventServiceApplicationTests {
 
     @Autowired
-    EventSender sender;
+    ControlDeviceService service;
 
     @Test
     void contextLoads() {
-        sender.sendMessage("device.status",Apple.builder().color("RED").id("123").build());
-        sender.sendMessageAsync("device.heartbeat",Apple.builder().color("Blue").id("aaa").build());
+//        sender.sendMessage("device.state",Apple.builder().color("RED").id("123").build());
+        service.sendControl("123","a1","on");
+        service.sendControl("123","a2","on");
+        service.sendControl("123","a3","on");
+//        service.sendControl("123","a41","off");
     }
 
-}
-
-@Data
-@Builder
-class Apple{
-    private String color;
-    private String id;
 }
