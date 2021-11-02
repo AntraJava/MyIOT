@@ -21,6 +21,6 @@ logging:
     com:
       antra: debug
 
-database:
-  mysql:
-    url: 'jdbc://localhost:3306'
+#database:
+#  mysql:
+#    url: 'jdbc://localhost:3306'

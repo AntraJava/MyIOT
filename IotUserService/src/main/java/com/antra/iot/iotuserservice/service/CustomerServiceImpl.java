@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -24,6 +26,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerException("Email Address already in use!");
         }
         Customer c = new Customer();
+        c.setId(UUID.randomUUID().toString());
         c.setEmail(customerRequest.getEmail());
         c.setName(customerRequest.getName());
         c.setUsername(customerRequest.getUsername());

@@ -7,7 +7,7 @@ public class CustomerVO {
     public CustomerVO(Customer customer){
         this.customer = customer;
     }
-    public Long getId(){
+    public String getId(){
         return customer.getId();
     }
     public String getName() {

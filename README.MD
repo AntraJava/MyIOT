@@ -1,10 +1,11 @@
 # Installation
 ### DB
-* MongoDB should be installed using docker.
-* Check [db.md](_Databases/db.md) for detailed instructions
+* MongoDB and MySQL should be installed using docker.
+* Check [db.md](_Config_Databases/db.md) for detailed instructions
 
-
-
+### Apache Kafka
+* Apache Kafka should be installed using docker.
+* Check [kafka.md](_Config_Kafka/kafka.md) for detailed instructions
 
 
 # Useful URLs

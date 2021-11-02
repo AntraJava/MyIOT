@@ -1,19 +1,21 @@
 package com.example.iothomeservice.api;
 
-import com.example.iothomeservice.api.pojo.Constants;
-import com.example.iothomeservice.api.pojo.Device;
-import com.example.iothomeservice.api.pojo.HomeConfig;
+import com.example.iothomeservice.api.pojo.*;
+import com.example.iothomeservice.service.HomeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/home")
 public class HomeController {
+
+    @Autowired
+    HomeService homeService;
+
     @GetMapping("/config/{hId}")
     public ResponseEntity<HomeConfig> getHomeConfig(@PathVariable String hId) {
         HomeConfig testConfig = new HomeConfig();
@@ -25,4 +27,11 @@ public class HomeController {
                 new Device("a4","switch","LighD", Constants.SWITCH_STATE_OFF)));
         return ResponseEntity.ok(testConfig);
     }
+
+    @PostMapping
+    public ResponseEntity<Home> createNewHome(@Validated @RequestBody NewHomeRequest newHomeRequest) {
+        Home home = homeService.createHome(newHomeRequest);
+        return ResponseEntity.ok(home);
+    }
+
 }

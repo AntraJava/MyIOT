@@ -19,7 +19,9 @@ public class RouteConfig {
         return builder.routes()
                 .route(r -> r.method(HttpMethod.POST).and().path("/customer").uri("lb://IotUserService"))
                 .route(r -> r.path("/customer/**").filters(f -> f.filter(jwtAuthenticationFilter)).uri("lb://IotUserService"))
-                .route(r -> r.path("/home/**").uri("lb://IotHomeService"))
+                .route(r -> r.path("/customer/**").filters(f -> f.filter(jwtAuthenticationFilter)).uri("lb://IotUserService"))
+                .route(r -> r.path("/home/**").and().method(HttpMethod.GET).uri("lb://IotHomeService"))
+                .route(r -> r.path("/home/**").and().method(HttpMethod.POST).filters(f -> f.filter(jwtAuthenticationFilter)).uri("lb://IotHomeService"))
                 .route(r -> r.path("/authenticate","/validate").uri("lb://AuthService"))
                 .build();
     }
