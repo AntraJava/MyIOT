@@ -1,5 +1,6 @@
 package com.antra.iot.authservice.jwt;
 
+import com.antra.iot.authservice.pojo.Customer;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,7 +49,7 @@ public class JwtTokenUtil{
     }
 
     //generate token for user
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(Customer userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return doGenerateToken(claims, userDetails.getUsername());
     }
@@ -66,7 +67,7 @@ public class JwtTokenUtil{
     }
 
     //validate token
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(String token, Customer userDetails) {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

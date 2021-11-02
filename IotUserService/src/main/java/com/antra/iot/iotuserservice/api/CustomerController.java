@@ -3,6 +3,7 @@ package com.antra.iot.iotuserservice.api;
 import com.antra.iot.iotuserservice.api.pojo.ErrorResponse;
 import com.antra.iot.iotuserservice.api.pojo.RegisterRequest;
 import com.antra.iot.iotuserservice.api.pojo.ResponseMessage;
+import com.antra.iot.iotuserservice.api.pojo.UsernamePasswordRequest;
 import com.antra.iot.iotuserservice.exception.CustomerException;
 import com.antra.iot.iotuserservice.service.CustomerService;
 import com.antra.iot.iotuserservice.vo.CustomerVO;
@@ -31,6 +32,14 @@ public class CustomerController {
     public ResponseEntity<ResponseMessage<CustomerVO>> createCustomer(@Validated @RequestBody RegisterRequest customer) {
         CustomerVO savedCustomer = customerService.saveCustomer(customer);
         return new ResponseEntity<>(new ResponseMessage<>(HttpStatus.CREATED), HttpStatus.CREATED);
+    }
+    @PostMapping("/verify")
+    public ResponseEntity<ResponseMessage<CustomerVO>> verifyCustomer(@Validated @RequestBody UsernamePasswordRequest request) {
+        CustomerVO res = customerService.verifyCustomer(request);
+        if (res == null) {
+            return new ResponseEntity<>(new ResponseMessage<>(HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new ResponseMessage<>(HttpStatus.OK, res), HttpStatus.OK);
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> exceptionHandler(MethodArgumentNotValidException ex) {

@@ -1,6 +1,7 @@
 package com.antra.iot.iotuserservice.service;
 
 import com.antra.iot.iotuserservice.api.pojo.RegisterRequest;
+import com.antra.iot.iotuserservice.api.pojo.UsernamePasswordRequest;
 import com.antra.iot.iotuserservice.entity.Customer;
 import com.antra.iot.iotuserservice.exception.CustomerException;
 import com.antra.iot.iotuserservice.repository.CustomerRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -33,5 +35,16 @@ public class CustomerServiceImpl implements CustomerService {
         c.setPassword(new BCryptPasswordEncoder(13).encode(customerRequest.getPassword()));
         Customer savedCustomer = customerRepository.save(c);
         return new CustomerVO(savedCustomer);
+    }
+
+    @Override
+    public CustomerVO verifyCustomer(UsernamePasswordRequest request) {
+        Optional<Customer> ret = customerRepository.findByUsername(request.getUsername());
+        if(ret.isPresent()){
+            if (new BCryptPasswordEncoder(13).matches(request.getPassword(), ret.get().getPassword())) {
+                return new CustomerVO(ret.get());
+            }
+        }
+        return null;
     }
 }
