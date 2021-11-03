@@ -25,6 +25,9 @@
                 <li class="nav-item" *ngIf="!isHome()">
                     <a [routerLink]="['/home']" class="nav-link"><i class="nc-icon nc-layout-11"></i>Home</a>
                 </li>
+                <li class="nav-item" *ngIf="isControl()">
+                    <a [routerLink]="['/logout']" class="btn btn-outline-danger btn-round">Logout</a>
+                </li>
             </ul>
         </div>
     </div>
