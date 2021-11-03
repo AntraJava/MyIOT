@@ -1,0 +1,10 @@
+.card-device {
+    background-color: rgba(41, 79, 119, 0.7);
+    border-radius: 8px;
+    color: #fff;
+    max-width: 450px;
+    min-height: 100px;
+    padding: 30px;
+    z-index: 0;
+    margin: 30px;
+}

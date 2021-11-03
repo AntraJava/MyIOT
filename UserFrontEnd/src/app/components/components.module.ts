@@ -15,6 +15,8 @@ import {NotificationComponent} from './notification/notification.component';
 import {NgbdModalComponent, NgbdModalContent} from './modal/modal.component';
 import {SignupComponent} from "./signup/signup.component";
 import {SigninComponent} from './signin/signin.component';
+import {ControlBoardComponent} from './control-board/control-board.component';
+import {DeviceComponent} from './device/device.component';
 
 @NgModule({
     imports: [
@@ -35,7 +37,9 @@ import {SigninComponent} from './signin/signin.component';
         NgbdModalComponent,
         NgbdModalContent,
         SignupComponent,
-        SigninComponent
+        SigninComponent,
+        ControlBoardComponent,
+        DeviceComponent
     ],
     entryComponents: [NgbdModalContent],
     exports:[ ComponentsComponent ]
