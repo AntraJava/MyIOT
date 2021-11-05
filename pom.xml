@@ -17,6 +17,7 @@
         <module>IotUserService</module>
         <module>IotDeviceService</module>
         <module>IotEventService</module>
+        <module>IotHomeService</module>
         <module>AuthService</module>
         <module>IotHomeService</module>
     </modules>
