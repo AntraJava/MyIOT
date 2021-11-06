@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
+import {AuthService} from "../../service/auth.service";
 
 @Component({
     selector: 'app-navbar',
@@ -9,8 +10,10 @@ import {Location} from '@angular/common';
 export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
+    greeting = ()=> this.authService.getCurrentUser()?.name;
 
-    constructor(public location: Location, private element : ElementRef) {
+
+    constructor(public location: Location, private element : ElementRef, private authService: AuthService) {
         this.sidebarVisible = false;
     }
 
@@ -55,5 +58,9 @@ export class NavbarComponent implements OnInit {
             titlee = titlee.slice( 1 );
         }
         return titlee === '/control';
+    }
+
+    signout() {
+        localStorage.removeItem("iotToken");
     }
 }

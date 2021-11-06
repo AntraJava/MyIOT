@@ -20,8 +20,7 @@ export class SigninService {
     return this.http.post<{token:string}>(this.baseUrl + '/authenticate', data, options).pipe(map(data => {
       localStorage.setItem('iotToken', data.token);
       const tokenPayload = decodeToken(data.token);
-      console.info(tokenPayload);
-      this.authService.currentUser = {username: email, email: email, name: tokenPayload.name, id: tokenPayload.sub};
+      // this.authService.currentUser = {username: email, email: email, name: tokenPayload.name, id: tokenPayload.sub};
       return tokenPayload;
     }));
   }

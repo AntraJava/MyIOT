@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
     }
 }
 @Component({
-    selector: 'app-modal-content',
+    selector: 'app-modal-signup',
     template: `
     <div class="modal-header">
         <h5 class="modal-title text-center">You did it!</h5>
