@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SignupService} from "./signup.service";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-signup',
@@ -12,14 +13,17 @@ export class SignupComponent implements OnInit {
     password: string = '';
     password_repeat: string  = '';
     errorMsg: string[] = [];
-    constructor(private signupService: SignupService) { }
+    constructor(private signupService: SignupService, private modalService: NgbModal) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+
+    }
 
     onSubmit = () => {
         if(this.valid()){
             this.signupService.register(this.name, this.email, this.password).subscribe(
-                resp => alert(resp.name + 'successfully registered!')
+                resp => this.modalService.open(SignUpModalContent),
+                error => {this.errorMsg.length = 0; this.errorMsg.push(error.error.message);}
             );
         }
     }
@@ -36,4 +40,29 @@ export class SignupComponent implements OnInit {
         }
         return !empty && passwordMatch;
     }
+}
+@Component({
+    selector: 'app-modal-content',
+    template: `
+    <div class="modal-header">
+        <h5 class="modal-title text-center">You did it!</h5>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+<!--        <span aria-hidden="true">&times;</span>-->
+        </button>
+    </div>
+    <div class="modal-body text-center"> <h3 class="text-success font-weight-bold">Congratulations!</h3>
+    </div>
+    <div class="modal-footer">
+        <div class="left-side">
+            <button type="button" class="btn btn-default btn-link" (click)="activeModal.close('Close click')">Cancel</button>
+        </div>
+        <div class="divider"></div>
+        <div class="right-side">
+            <button type="button" class="btn btn-danger btn-link" [routerLink]="'/login'" (click)="activeModal.close('Close click')">LOGIN NOW</button>
+        </div>
+    </div>
+    `
+})
+export class SignUpModalContent {
+    constructor(public activeModal: NgbActiveModal) {}
 }

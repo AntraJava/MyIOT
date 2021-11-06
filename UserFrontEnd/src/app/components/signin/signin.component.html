@@ -7,38 +7,27 @@
                     <div class="card card-register">
                         <h3 class="font-weight-bold">Welcome</h3>
                         <div class="social-line text-center">
-                            <!--                              <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">-->
-                            <!--                                  <i class="fa fa-facebook-square"></i>-->
-                            <!--                              </a>-->
-                            <!--                              <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">-->
-                            <!--                                  <i class="fa fa-google-plus"></i>-->
-                            <!--                              </a>-->
-                            <!--                              <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">-->
-                            <!--                                  <i class="fa fa-twitter"></i>-->
-                            <!--                              </a>-->
                         </div>
                         <form class="register-form">
                             <label>Email</label>
-                            <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
+                            <div class="input-group form-group-no-border">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text">
                                       <i class="nc-icon nc-email-85"></i>
                                   </span>
                                 </div>
-
-                                <input type="text" class="form-control" placeholder="Email" (focus)="focus=true" (blur)="focus=false" >
+                                <input [(ngModel)]="email" type="text" name="email" class="form-control" placeholder="Email">
                             </div>
-
                             <label>Password</label>
-                            <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}">
+                            <div class="input-group form-group-no-border">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text">
                                       <i class="nc-icon nc-key-25"></i>
                                   </span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Password" (focus)="focus1=true" (blur)="focus1=false" >
+                                <input [(ngModel)]="password" type="text" name="password" class="form-control" placeholder="Password">
                             </div>
-                            <button class="btn btn-danger btn-block btn-round">Login</button>
+                            <button class="btn btn-danger btn-block btn-round" (click)="doLogIn()">Login</button>
                         </form>
                         <div class="forgot">
                             <a href="#" class="btn btn-link font-weight-bold">Forgot password?</a>

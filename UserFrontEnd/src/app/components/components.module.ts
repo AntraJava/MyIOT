@@ -13,11 +13,11 @@ import {NucleoiconsComponent} from './nucleoicons/nucleoicons.component';
 import {ComponentsComponent} from './components.component';
 import {NotificationComponent} from './notification/notification.component';
 import {NgbdModalComponent, NgbdModalContent} from './modal/modal.component';
-import {SignupComponent} from "./signup/signup.component";
+import {SignupComponent, SignUpModalContent} from "./signup/signup.component";
 import {SigninComponent} from './signin/signin.component';
 import {ControlBoardComponent} from './control-board/control-board.component';
 import {DeviceComponent} from './device/device.component';
-import { AddDeviceComponent } from './add-device/add-device.component';
+import {AddDeviceComponent} from './add-device/add-device.component';
 
 @NgModule({
     imports: [
@@ -41,7 +41,8 @@ import { AddDeviceComponent } from './add-device/add-device.component';
         SigninComponent,
         ControlBoardComponent,
         DeviceComponent,
-        AddDeviceComponent
+        AddDeviceComponent,
+        SignUpModalContent
     ],
     entryComponents: [NgbdModalContent],
     exports:[ ComponentsComponent ]

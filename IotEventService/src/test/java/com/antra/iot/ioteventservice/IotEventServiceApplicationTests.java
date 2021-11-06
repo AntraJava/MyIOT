@@ -13,9 +13,9 @@ class IotEventServiceApplicationTests {
     @Test
     void contextLoads() {
 //        sender.sendMessage("device.state",Apple.builder().color("RED").id("123").build());
-        service.sendControl("123","a1","on");
-        service.sendControl("123","a2","on");
-        service.sendControl("123","a3","on");
+        service.sendControl("123","a1","off");
+        service.sendControl("123","a2","off");
+        service.sendControl("123","a3","off");
 //        service.sendControl("123","a41","off");
     }
 

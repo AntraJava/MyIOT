@@ -15,7 +15,7 @@ class AuthServiceApplicationTests {
         JwtRequest request = new JwtRequest();
         request.setUsername("zdwrz");
         request.setPassword("1231231");
-        customerServiceClient.loadQuestionsByAssessment(request);
+        customerServiceClient.getCustomer(request);
     }
 
 }

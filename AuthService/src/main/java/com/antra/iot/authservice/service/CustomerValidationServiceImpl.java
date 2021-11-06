@@ -14,6 +14,6 @@ public class CustomerValidationServiceImpl implements CustomerValidationService 
 
     @Override
     public Customer verifyLogin(JwtRequest authenticationRequest) {
-        return customerServiceClient.loadQuestionsByAssessment(authenticationRequest).getBody();
+        return customerServiceClient.getCustomer(authenticationRequest).getBody().getData();
     }
 }

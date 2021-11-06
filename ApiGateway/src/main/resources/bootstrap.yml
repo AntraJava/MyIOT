@@ -10,6 +10,3 @@ spring:
       fail-fast: true
       password: 12345678
       username: config-server-user
-logging:
-  level:
-   root: debug

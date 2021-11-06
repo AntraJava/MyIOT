@@ -31,7 +31,7 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<ResponseMessage<CustomerVO>> createCustomer(@Validated @RequestBody RegisterRequest customer) {
         CustomerVO savedCustomer = customerService.saveCustomer(customer);
-        return new ResponseEntity<>(new ResponseMessage<>(HttpStatus.CREATED), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseMessage<>(HttpStatus.CREATED,savedCustomer), HttpStatus.CREATED);
     }
     @PostMapping("/verify")
     public ResponseEntity<ResponseMessage<CustomerVO>> verifyCustomer(@Validated @RequestBody UsernamePasswordRequest request) {
@@ -39,6 +39,7 @@ public class CustomerController {
         if (res == null) {
             return new ResponseEntity<>(new ResponseMessage<>(HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
+        log.info("User info : {}", res);
         return new ResponseEntity<>(new ResponseMessage<>(HttpStatus.OK, res), HttpStatus.OK);
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)

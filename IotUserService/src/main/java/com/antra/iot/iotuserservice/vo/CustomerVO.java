@@ -13,7 +13,17 @@ public class CustomerVO {
     public String getName() {
         return customer.getName();
     }
+    public String getUsername() {
+        return customer.getUsername();
+    }
     public String getEmail() {
         return customer.getEmail();
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerVO{" +
+                "customer=" + customer +
+                '}';
     }
 }

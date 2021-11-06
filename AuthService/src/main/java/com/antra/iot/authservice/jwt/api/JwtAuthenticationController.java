@@ -6,11 +6,13 @@ import com.antra.iot.authservice.jwt.JwtTokenUtil;
 import com.antra.iot.authservice.pojo.Customer;
 import com.antra.iot.authservice.service.CustomerValidationService;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
-@CrossOrigin
+@Slf4j
 public class JwtAuthenticationController {
 
 
@@ -25,9 +27,11 @@ public class JwtAuthenticationController {
 
 //        final UserDetails userDetails = userDetailsService
 //                .loadUserByUsername(authenticationRequest.getUsername());
-
+        log.info("User try to login: " + authenticationRequest.getUsername());
         Customer userDetails = cvs.verifyLogin(authenticationRequest);
         userDetails.setUsername(authenticationRequest.getUsername());
+        userDetails.setId(userDetails.getId());
+        log.info("User logged in {}", userDetails);
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }
