@@ -18,7 +18,7 @@ export class SigninService {
     const options = { headers: new HttpHeaders({'Content-Type': 'application/json'}) };
     const data = {username:email, password:password}
     return this.http.post<{token:string}>(this.baseUrl + '/authenticate', data, options).pipe(map(data => {
-      localStorage.setItem('accessToken', data.token);
+      localStorage.setItem('iotToken', data.token);
       const tokenPayload = decodeToken(data.token);
       console.info(tokenPayload);
       this.authService.currentUser = {username: email, email: email, name: tokenPayload.name, id: tokenPayload.sub};
@@ -26,7 +26,7 @@ export class SigninService {
     }));
   }
 }
-function decodeToken(token) {
+export function decodeToken(token) {
   const _decodeToken = (token) => {
     try {
       return JSON.parse(atob(token));
