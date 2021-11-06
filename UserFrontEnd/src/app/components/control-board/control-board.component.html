@@ -4,7 +4,7 @@
             <app-home [homeConfig]="home" *ngFor="let home of homeList"></app-home>
 
         </div>
-        <div class="container add-new-home text-warning" *ngIf="homeList.length === 0">
+        <div class="container add-new-home text-warning" *ngIf="homeList.length === 0" (click)="addHome()">
                 <div class="nc-icon font-weight-bold nc-settings-gear-65">Click To Add a New Home</div>
         </div>
         <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>

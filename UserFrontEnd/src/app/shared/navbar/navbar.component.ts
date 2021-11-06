@@ -63,4 +63,8 @@ export class NavbarComponent implements OnInit {
     signout() {
         localStorage.removeItem("iotToken");
     }
+
+    addHome() {
+
+    }
 }

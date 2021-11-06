@@ -16,7 +16,9 @@ const routes: Routes =[
     { path: 'signup',           component: SignupComponent },
     { path: 'login',           component: SigninComponent },
     { path: 'nucleoicons',      component: NucleoiconsComponent },
-    { path: 'control',canActivate: [AuthGuardService],component: ControlBoardComponent }
+    { path: 'control',
+        // canActivate: [AuthGuardService],
+        component: ControlBoardComponent }
 ];
 
 @NgModule({

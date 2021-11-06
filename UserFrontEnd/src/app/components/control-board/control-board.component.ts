@@ -15,8 +15,13 @@ export class ControlBoardComponent implements OnInit {
   constructor(private authService: AuthService, private homeService: HomeConfigService) { }
 
   ngOnInit(): void {
-
-    // this.homeList.push({id:'12345',name:'asdfg'});
+    // this.homeService.loadHome(this.authService.getCurrentUser()).subscribe(
+    //     homeList =>{
+    //       console.log(homeList);}
+    // );
   }
 
+  addHome() {
+    alert('add home');
+  }
 }
