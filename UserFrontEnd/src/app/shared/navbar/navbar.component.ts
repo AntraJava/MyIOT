@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {AuthService} from "../../service/auth.service";
+import {BusService} from '../../service/bus.service';
 
 @Component({
     selector: 'app-navbar',
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
     greeting = ()=> this.authService.getCurrentUser()?.name;
 
 
-    constructor(public location: Location, private element : ElementRef, private authService: AuthService) {
+    constructor(public location: Location, private element : ElementRef, private authService: AuthService, private busService:BusService) {
         this.sidebarVisible = false;
     }
 
@@ -65,6 +66,6 @@ export class NavbarComponent implements OnInit {
     }
 
     addHome() {
-
+        this.busService.sendMessage("new home");
     }
 }

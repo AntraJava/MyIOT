@@ -15,7 +15,7 @@ import {NotificationComponent} from './notification/notification.component';
 import {NgbdModalComponent, NgbdModalContent} from './modal/modal.component';
 import {SignupComponent, SignUpModalContent} from "./signup/signup.component";
 import {SigninComponent} from './signin/signin.component';
-import {ControlBoardComponent} from './control-board/control-board.component';
+import {AddHomeModalContent, ControlBoardComponent} from './control-board/control-board.component';
 import {DeviceComponent} from './device/device.component';
 import {AddDeviceComponent, AddDeviceModalContent} from './add-device/add-device.component';
 import {HomeComponent} from './home/home.component';
@@ -45,7 +45,8 @@ import {HomeComponent} from './home/home.component';
         AddDeviceComponent,
         SignUpModalContent,
         AddDeviceModalContent,
-        HomeComponent
+        HomeComponent,
+        AddHomeModalContent
     ],
     entryComponents: [NgbdModalContent],
     exports:[ ComponentsComponent ]

@@ -12,7 +12,6 @@ import {FooterComponent} from './shared/footer/footer.component';
 import {ComponentsModule} from './components/components.module';
 import {HttpClientModule} from "@angular/common/http";
 import {AuthGuardService} from "./service/auth-guard.service";
-import {AuthService} from "./service/auth.service";
 
 
 @NgModule({
@@ -30,7 +29,7 @@ import {AuthService} from "./service/auth.service";
         AppRoutingModule,
         HttpClientModule
     ],
-    providers: [ AuthGuardService, AuthService],
+    providers: [ AuthGuardService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
