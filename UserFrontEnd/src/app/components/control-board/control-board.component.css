@@ -1,0 +1,33 @@
+.scroll{
+    max-height: 810px;
+    overflow-y: auto;
+}
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+}
+.add-new-home{
+    background-color: rgba(57, 176, 213, 0);
+    max-width: 450px;
+    min-height: 20px;
+    z-index: 0;
+    margin: auto;
+    /*margin-top: 50%;*/
+    text-align: center;
+    font-size: large;
+    transition: transform .5s;
+}
+.add-new-home:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+
+}

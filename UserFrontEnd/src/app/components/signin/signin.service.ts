@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {map} from "rxjs/operators";
 import {AuthService} from "../../service/auth.service";
+import {decodeToken} from "../../shared/utility/util";
 
 @Injectable({
   providedIn: 'root'
@@ -24,20 +25,4 @@ export class SigninService {
       return tokenPayload;
     }));
   }
-}
-export function decodeToken(token) {
-  const _decodeToken = (token) => {
-    try {
-      return JSON.parse(atob(token));
-    } catch {
-      return;
-    }
-  };
-  return token
-      .split('.')
-      .map(token => _decodeToken(token))
-      .reduce((acc, curr) => {
-        if (!!curr) acc = { ...acc, ...curr };
-        return acc;
-      }, Object.create(null));
 }

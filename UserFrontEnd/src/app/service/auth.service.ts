@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {decodeToken} from "../components/signin/signin.service";
+import {decodeToken} from "../shared/utility/util";
 
 @Injectable({
   providedIn: 'root'

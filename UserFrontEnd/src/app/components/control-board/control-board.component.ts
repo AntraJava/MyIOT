@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../../service/auth.service";
+import {HomeConfigService} from "./home-config.service";
+import {HomeConfig} from "../../shared/entity/home-config";
 
 @Component({
   selector: 'app-control-board',
@@ -7,9 +10,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ControlBoardComponent implements OnInit {
 
-  constructor() { }
+  homeList: HomeConfig[] = [];
+
+  constructor(private authService: AuthService, private homeService: HomeConfigService) { }
 
   ngOnInit(): void {
+
+    // this.homeList.push({id:'12345',name:'asdfg'});
   }
 
 }

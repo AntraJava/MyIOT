@@ -1,18 +1,17 @@
 .card-add-device {
-    background-color: rgba(141, 139, 16, 0.7);
-    border-radius: 8px;
-    color: #fff;
-    max-width: 450px;
-    min-height: 120px;
-    padding: 10px;
+    background-color: rgba(16, 112, 141, 0);
+    max-width: 50px;
+    min-height: 20px;
     z-index: 0;
-    margin: 30px;
-    margin-top: 50%;
+    margin: auto;
+    margin-top: 1rem;
+    /*margin-top: 50%;*/
     text-align: center;
     font-size: large;
     transition: transform .1s;
 }
 .card-add-device:hover {
     cursor: pointer;
-    transform: scale(1.1); 
+    transform: scale(1.5);
+
 }
