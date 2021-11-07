@@ -9,6 +9,5 @@ public class NewHomeRequest {
     @NotBlank
     private String name;
     private String locationInfo;
-    @NotBlank
     private String ownerId;
 }

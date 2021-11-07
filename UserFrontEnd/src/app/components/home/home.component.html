@@ -1,8 +1,12 @@
 <div class="content-center">
     <div class="container">
-        <h2 class="presentation-subtitle text-center font-weight-bold">{{homeConfig.name}}        <app-add-device></app-add-device></h2>
+        <h2 class="presentation-subtitle text-center font-weight-bold">
+            <span>{{homeConfig.name}}</span>
+            <h5 *ngIf="!homeConfig.devices || homeConfig.devices.length == 0">Click button below to add device</h5>
+            <app-add-device></app-add-device>
+        </h2>
         <div class="card-deck text-center">
-            <app-device></app-device>
+            <app-device *ngFor="let device of homeConfig.devices" [device]="device"></app-device>
         </div>
     </div>
 </div>

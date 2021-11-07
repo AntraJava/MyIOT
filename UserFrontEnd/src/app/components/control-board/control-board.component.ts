@@ -24,6 +24,7 @@ export class ControlBoardComponent implements OnInit {
     //     homeList =>{
     //       console.log(homeList);}
     // );
+    //For nav bar button
     this.subscription = this.busService.getMessage().subscribe(message => { console.log(message);
     if(message.text === 'new home') { this.addHome()}});
   }
@@ -32,7 +33,11 @@ export class ControlBoardComponent implements OnInit {
   }
 
   addHome() {
-    this.modalService.open(AddHomeModalContent);
+    this.modalService.open(AddHomeModalContent).result.then(result => {
+      if (result) {
+        this.homeList.push(result);
+      }
+    }).catch(console.error);
   }
 }
 
@@ -41,9 +46,9 @@ export class ControlBoardComponent implements OnInit {
   template: `
     <div class="modal-header">
         <h5 class="modal-title text-center">New Home</h5>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+<!--        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">-->
 <!--        <span aria-hidden="true">&times;</span>-->
-        </button>
+<!--        </button>-->
     </div>
     <div class="modal-body text-center"> 
           <label>Home Name</label>
@@ -55,23 +60,26 @@ export class ControlBoardComponent implements OnInit {
     </div>
     <div class="modal-footer">
         <div class="left-side">
-            <button type="button" class="btn btn-default btn-link" (click)="activeModal.close('Close click')">Cancel</button>
+            <button type="button" class="btn btn-default btn-link" (click)="activeModal.close()">Cancel</button>
         </div>
         <div class="divider"></div>
         <div class="right-side">
-            <button type="button" class="btn btn-danger btn-link" (click)="addDevice()">Add</button>
+            <button type="button" class="btn btn-danger btn-link" (click)="addHome()">Add</button>
         </div>
     </div>
     `
 })
 export class AddHomeModalContent {
-  name:string;
+  name:string = '';
   locationInfo:string;
   //ownerId;
-  constructor(public activeModal: NgbActiveModal) {
-  }
+  constructor(public activeModal: NgbActiveModal, private homeService:HomeConfigService) {}
 
-  addDevice() {
-    this.activeModal.dismiss();
+  addHome() {
+    if (this.name.length > 0) {
+      this.homeService.createHome(this.name, this.locationInfo).subscribe(
+          home => this.activeModal.close(home)
+      );
+    }
   }
 }
