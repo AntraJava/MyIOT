@@ -23,7 +23,7 @@ export class HomeConfigService {
     createHome(name: string, locationInfo: string): Observable<HomeConfig> {
       const options = { headers: new HttpHeaders({'Content-Type': 'application/json'}) };
       const data = {name:name, locationInfo:locationInfo}
-      // return this.http.post<Customer>(this.baseUrl + '/home', data, options);
-      return new Observable<HomeConfig>(subscriber => subscriber.next({name:'sweet home',id:'123'}));
+      return this.http.post<Customer>(this.baseUrl + '/home', data, options);
+      // return new Observable<HomeConfig>(subscriber => subscriber.next({name:'sweet home',id:'123'}));
     }
 }

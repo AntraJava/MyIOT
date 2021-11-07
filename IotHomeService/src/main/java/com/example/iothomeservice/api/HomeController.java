@@ -29,7 +29,8 @@ public class HomeController {
     }
 
     @PostMapping
-    public ResponseEntity<Home> createNewHome(@Validated @RequestBody NewHomeRequest newHomeRequest) {
+    public ResponseEntity<Home> createNewHome(@Validated @RequestBody NewHomeRequest newHomeRequest, @RequestHeader("userId")String userId) {
+        newHomeRequest.setOwnerId(userId);
         Home home = homeService.createHome(newHomeRequest);
         return ResponseEntity.ok(home);
     }

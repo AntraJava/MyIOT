@@ -59,8 +59,9 @@ public class JwtAuthenticationFilter implements GatewayFilter {
     private void populateRequestWithHeaders(ServerWebExchange exchange, String token) {
         Claims claims = jwtUtil.getClaimFromToken(token, Function.identity());
         exchange.getRequest().mutate()
-                .header("id", String.valueOf(claims.get("id")))
-                .header("role", String.valueOf(claims.get("role")))
+                .header("userId", String.valueOf(claims.get("sub")))
+                .header("userEmail", String.valueOf(claims.get("email")))
+                .header("username", String.valueOf(claims.get("name")))
                 .build();
     }
 }
