@@ -6,7 +6,8 @@ spring:
       dev
   cloud:
     config:
-      uri: http://localhost:8888
-      fail-fast: true
       password: 12345678
       username: config-server-user
+  config:
+    import: configserver:http://localhost:8888
+
