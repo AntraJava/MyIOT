@@ -1,6 +1,8 @@
 package com.example.iothomeservice.api;
 
-import com.example.iothomeservice.api.pojo.*;
+import com.example.iothomeservice.api.pojo.Home;
+import com.example.iothomeservice.api.pojo.HomeConfig;
+import com.example.iothomeservice.api.pojo.NewHomeRequest;
 import com.example.iothomeservice.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +23,10 @@ public class HomeController {
         HomeConfig testConfig = new HomeConfig();
         testConfig.setId("a1b2");
         testConfig.setName("Test Home");
-        testConfig.setDevices(List.of(new Device("a1","switch","LighA", Constants.SWITCH_STATE_ON),
-                new Device("a2","switch","LighB", Constants.SWITCH_STATE_OFF),
-                new Device("a3","switch","LighC", Constants.SWITCH_STATE_ON), 
-                new Device("a4","switch","LighD", Constants.SWITCH_STATE_OFF)));
+//        testConfig.setDevices(List.of(new Device("a1","switch","LighA", Constants.SWITCH_STATE_ON),
+//                new Device("a2","switch","LighB", Constants.SWITCH_STATE_OFF),
+//                new Device("a3","switch","LighC", Constants.SWITCH_STATE_ON),
+//                new Device("a4","switch","LighD", Constants.SWITCH_STATE_OFF)));
         return ResponseEntity.ok(testConfig);
     }
 

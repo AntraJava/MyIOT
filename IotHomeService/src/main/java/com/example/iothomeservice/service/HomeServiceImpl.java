@@ -4,6 +4,7 @@ import com.example.iothomeservice.api.pojo.Home;
 import com.example.iothomeservice.api.pojo.NewHomeRequest;
 import com.example.iothomeservice.entity.HomeEntity;
 import com.example.iothomeservice.repository.HomeRepository;
+import com.example.iothomeservice.service.feign.DeviceServiceClient;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -18,6 +19,9 @@ public class HomeServiceImpl implements HomeService {
 
     @Autowired
     HomeRepository homeRepository;
+
+    @Autowired
+    DeviceServiceClient deviceServiceClient;
 
     /**
      * Why do we three classes, NewHomeRequest, Home, HomeEntity with similar fields ?
@@ -42,10 +46,14 @@ public class HomeServiceImpl implements HomeService {
         HomeEntity home = new HomeEntity();
         home.setOwnerId(userId);
         Example<HomeEntity> example = Example.of(home);
-        return homeRepository.findAll(example).stream().map(entity->{
+        List<Home> homeList = homeRepository.findAll(example).stream().map(entity->{
             Home h  = new Home();
             BeanUtils.copyProperties(entity, h);
             return h;
         }).collect(Collectors.toList());
+        for (Home h : homeList){
+            h.setDevices(deviceServiceClient.getDevicesByHomeId(h.getId()).getBody());
+        }
+        return homeList;
     }
 }

@@ -21,6 +21,7 @@ logging:
     com:
       antra: debug
 
-#database:
-#  mysql:
-#    url: 'jdbc://localhost:3306'
+#spring:
+#  jpa:
+#    hibernate:
+#      ddl-auto: create

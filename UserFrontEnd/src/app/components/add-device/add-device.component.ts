@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {DeviceService} from "../device/device.service";
+import {Device} from "../../shared/entity/device";
 
 @Component({
   selector: 'app-add-device',
@@ -10,6 +11,8 @@ import {DeviceService} from "../device/device.service";
 export class AddDeviceComponent implements OnInit {
 
   @Input() homeId:string;
+
+  @Output() newDevice: EventEmitter<Device> = new EventEmitter<Device>();
 
   constructor(private modalService: NgbModal, private deviceService:DeviceService) { }
 
@@ -21,10 +24,10 @@ export class AddDeviceComponent implements OnInit {
       if (result) {
         result.homeId = this.homeId;
         this.deviceService.addDevice(result).subscribe(
-            device => console.log(device)
+            device => this.newDevice.emit(device)
         );
       }
-    }).catch(console.error);;
+    }).catch(console.error);
   }
 }
 @Component({
