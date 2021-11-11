@@ -6,9 +6,12 @@ import com.example.iothomeservice.entity.HomeEntity;
 import com.example.iothomeservice.repository.HomeRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class HomeServiceImpl implements HomeService {
@@ -32,5 +35,17 @@ public class HomeServiceImpl implements HomeService {
         Home home = new Home();
         BeanUtils.copyProperties(homeToBeSaved, home);
         return home;
+    }
+
+    @Override
+    public List<Home> getHomeList(String userId) {
+        HomeEntity home = new HomeEntity();
+        home.setOwnerId(userId);
+        Example<HomeEntity> example = Example.of(home);
+        return homeRepository.findAll(example).stream().map(entity->{
+            Home h  = new Home();
+            BeanUtils.copyProperties(entity, h);
+            return h;
+        }).collect(Collectors.toList());
     }
 }

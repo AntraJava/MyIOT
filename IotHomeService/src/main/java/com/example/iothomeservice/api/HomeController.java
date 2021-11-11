@@ -28,6 +28,12 @@ public class HomeController {
         return ResponseEntity.ok(testConfig);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Home>> getHomeConfigByCustomerId(@RequestHeader("userId")String userId) {
+        List<Home> homeList = homeService.getHomeList(userId);
+        return ResponseEntity.ok(homeList);
+    }
+
     @PostMapping
     public ResponseEntity<Home> createNewHome(@Validated @RequestBody NewHomeRequest newHomeRequest, @RequestHeader("userId")String userId) {
         newHomeRequest.setOwnerId(userId);

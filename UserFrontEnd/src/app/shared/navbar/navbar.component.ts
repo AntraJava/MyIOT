@@ -68,4 +68,8 @@ export class NavbarComponent implements OnInit {
     addHome() {
         this.busService.sendMessage("new home");
     }
+
+    addNewHome() {
+
+    }
 }

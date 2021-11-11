@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {DeviceService} from "../device/device.service";
 
 @Component({
   selector: 'app-add-device',
@@ -42,10 +43,14 @@ export class AddDeviceComponent implements OnInit {
     `
 })
 export class AddDeviceModalContent {
-  serialNum: string;
-  constructor(public activeModal: NgbActiveModal) {}
+  serialNum: string = '';
+  constructor(public activeModal: NgbActiveModal, private deviceService:DeviceService) {}
 
   addDevice() {
-    this.activeModal.dismiss();
+    if (this.serialNum.length > 0) {
+      this.deviceService.addDevice(this.serialNum).subscribe(
+          device => this.activeModal.close(device)
+      );
+    }
   }
 }

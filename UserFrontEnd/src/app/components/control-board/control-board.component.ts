@@ -20,10 +20,12 @@ export class ControlBoardComponent implements OnInit {
               private modalService: NgbModal, private busService: BusService) { }
 
   ngOnInit(): void {
-    // this.homeService.loadHome(this.authService.getCurrentUser()).subscribe(
-    //     homeList =>{
-    //       console.log(homeList);}
-    // );
+    this.homeService.loadHome(this.authService.getCurrentUser()).subscribe(
+        homeList =>{
+          this.homeList = homeList;
+          console.log(homeList);
+        }
+    );
     //For nav bar button
     this.subscription = this.busService.getMessage().subscribe(message => { console.log(message);
     if(message.text === 'new home') { this.addHome()}});
