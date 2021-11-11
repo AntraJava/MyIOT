@@ -1,3 +1,11 @@
-<div class="card-add-device" (click)="addNew()">
-    <div class="nc-icon font-weight-bold nc-settings-gear-65"></div>
+<div class="card-add-device">
+    <div ngbDropdown class="dropdown" placement="bottom-left">
+        <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle><i class="nc-icon font-weight-bold nc-settings-gear-65" aria-hidden="true"></i></a>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-danger dropdown-menu-right">
+            <a class="dropdown-item" (click)="addNew()">Add Device</a>
+            <a class="dropdown-item">Update Home</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger">Delete Home</a>
+        </div>
+    </div>
 </div>

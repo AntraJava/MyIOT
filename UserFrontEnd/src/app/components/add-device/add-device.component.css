@@ -8,10 +8,7 @@
     /*margin-top: 50%;*/
     text-align: center;
     font-size: large;
-    transition: transform .1s;
 }
 .card-add-device:hover {
     cursor: pointer;
-    transform: scale(1.5);
-
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {DeviceService} from "../device/device.service";
 
@@ -9,13 +9,22 @@ import {DeviceService} from "../device/device.service";
 })
 export class AddDeviceComponent implements OnInit {
 
-  constructor(private modalService: NgbModal) { }
+  @Input() homeId:string;
+
+  constructor(private modalService: NgbModal, private deviceService:DeviceService) { }
 
   ngOnInit(): void {
   }
 
   addNew(){
-    this.modalService.open(AddDeviceModalContent);
+    this.modalService.open(AddDeviceModalContent).result.then(result => {
+      if (result) {
+        result.homeId = this.homeId;
+        this.deviceService.addDevice(result).subscribe(
+            device => console.log(device)
+        );
+      }
+    }).catch(console.error);;
   }
 }
 @Component({
@@ -23,17 +32,21 @@ export class AddDeviceComponent implements OnInit {
   template: `
     <div class="modal-header">
         <h5 class="modal-title text-center">New Device</h5>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
 <!--        <span aria-hidden="true">&times;</span>-->
         </button>
     </div>
     <div class="modal-body text-center"> 
           <label>Device Serial Number</label>
             <input name="serialNum" type="text" class="form-control" placeholder="Device Serial Number" [(ngModel)]="serialNum">
+    </div> 
+    <div class="modal-body text-center"> 
+          <label>Device Name</label>
+            <input name="deviceName" type="text" class="form-control" placeholder="Device Name" [(ngModel)]="deviceName">
     </div>
     <div class="modal-footer">
         <div class="left-side">
-            <button type="button" class="btn btn-default btn-link" (click)="activeModal.close('Close click')">Cancel</button>
+            <button type="button" class="btn btn-default btn-link" (click)="activeModal.close()">Cancel</button>
         </div>
         <div class="divider"></div>
         <div class="right-side">
@@ -44,13 +57,13 @@ export class AddDeviceComponent implements OnInit {
 })
 export class AddDeviceModalContent {
   serialNum: string = '';
-  constructor(public activeModal: NgbActiveModal, private deviceService:DeviceService) {}
+  deviceName: string = '';
+  constructor(public activeModal: NgbActiveModal) {}
 
   addDevice() {
-    if (this.serialNum.length > 0) {
-      this.deviceService.addDevice(this.serialNum).subscribe(
-          device => this.activeModal.close(device)
-      );
+    if (this.serialNum.length > 0 && this.deviceName.length > 0) {
+      let device = {serialNum: this.serialNum, name:this.deviceName};
+      this.activeModal.close(device)
     }
   }
 }

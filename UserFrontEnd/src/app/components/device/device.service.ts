@@ -13,9 +13,8 @@ export class DeviceService {
 
   constructor(private http: HttpClient) { }
 
-    addDevice(serialNum: string):Observable<Device> {
+    addDevice(device:Device):Observable<Device> {
       const options = { headers: new HttpHeaders({'Content-Type': 'application/json'}) };
-      const data = {serialNum:serialNum}
-      return this.http.post<Device>(this.baseUrl + '/device', data, options);
+      return this.http.post<Device>(this.baseUrl + '/device', device, options);
     }
 }

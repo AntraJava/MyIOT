@@ -3,4 +3,6 @@ export interface Device {
     type:string;
     name:string;
     state:string;
+    serialNum:string;
+    homeId:string;
 }
