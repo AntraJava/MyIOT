@@ -23,7 +23,7 @@ logging:
 web:
   server:
     url: "http://localhost:4200"
-#spring:
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
