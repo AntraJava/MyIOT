@@ -56,4 +56,16 @@ public class HomeServiceImpl implements HomeService {
         }
         return homeList;
     }
+
+    @Override
+    public Home getHome(String hId) {
+        return homeRepository.findById(hId).map(entity -> {
+            Home h = new Home();
+            h.setId(entity.getId());
+            h.setName(entity.getName());
+            h.setOwnerId(entity.getOwnerId());
+            h.setLocationInfo(entity.getLocationInfo());
+            return h;
+        }).orElseGet(null);
+    }
 }

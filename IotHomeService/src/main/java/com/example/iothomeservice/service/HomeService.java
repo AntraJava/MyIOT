@@ -9,4 +9,6 @@ public interface HomeService {
     Home createHome(NewHomeRequest newHomeRequest);
 
     List<Home> getHomeList(String userId);
+
+    Home getHome(String hId);
 }

@@ -38,9 +38,15 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<Claims> validateToken(@RequestBody JwtToken request) {
+    public ResponseEntity<Customer> validateToken(@RequestBody JwtToken request) {
         if (jwtTokenUtil.validateToken(request.getToken())) {
-            return ResponseEntity.ok(jwtTokenUtil.getAllClaimsFromToken(request.getToken()));
+            Customer customer = new Customer();
+            Claims claims = jwtTokenUtil.getAllClaimsFromToken(request.getToken());
+            customer.setId(claims.getSubject());
+            customer.setEmail(claims.get("email", String.class));
+            customer.setName(claims.get("name", String.class));
+            customer.setUsername(claims.get("username", String.class));
+            return ResponseEntity.ok(customer);
         }
         return ResponseEntity.status(401).build();
     }

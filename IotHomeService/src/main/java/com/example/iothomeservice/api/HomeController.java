@@ -18,6 +18,12 @@ public class HomeController {
     @Autowired
     HomeService homeService;
 
+    @GetMapping("/{hId}")
+    public ResponseEntity<Home> getHomeById(@PathVariable String hId) {
+        Home home= homeService.getHome(hId);
+        return ResponseEntity.ok(home);
+    }
+
     @GetMapping("/config/{hId}")
     public ResponseEntity<HomeConfig> getHomeConfig(@PathVariable String hId) {
         HomeConfig testConfig = new HomeConfig();

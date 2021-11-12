@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HomeConfig} from "../../shared/entity/home-config";
 import {Device} from "../../shared/entity/device";
 import {WebSocketAPI} from "../../service/websocket";
@@ -8,7 +8,7 @@ import {WebSocketAPI} from "../../service/websocket";
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
     @Input() homeConfig: HomeConfig;
 
@@ -30,5 +30,10 @@ export class HomeComponent implements OnInit {
     sendControlToServer($event) {
         let deviceControlRequest = {cmd:"control",homeId:this.homeConfig.id, deviceId: $event.id, state: $event.state};
         this.socket.send(deviceControlRequest);
+    }
+
+    ngOnDestroy(): void {
+        console.log("Disconnecting websocket....", this.homeConfig.id);
+        this.socket._disconnect();
     }
 }
