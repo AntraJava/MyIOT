@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Device} from '../../shared/entity/device';
 
 @Component({
@@ -10,9 +10,13 @@ export class DeviceComponent implements OnInit {
 
   @Input() device:Device;
 
+  @Output() controlEvent: EventEmitter<Device> = new EventEmitter<Device>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  control() {
+    this.controlEvent.emit(this.device);
+  }
 }

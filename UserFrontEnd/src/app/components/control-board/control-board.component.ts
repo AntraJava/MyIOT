@@ -23,7 +23,6 @@ export class ControlBoardComponent implements OnInit {
     this.homeService.loadHome(this.authService.getCurrentUser()).subscribe(
         homeList =>{
           this.homeList = homeList;
-          console.log(homeList);
         }
     );
     //For nav bar button

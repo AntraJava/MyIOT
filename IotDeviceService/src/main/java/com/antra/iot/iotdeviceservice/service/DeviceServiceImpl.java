@@ -23,6 +23,10 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public DeviceVO addDeviceToHome(NewDeviceRequest request) {
+        // check serial number. it should be there when device is produced.
+        // if(checkSerialNumber(request.getSerialNum())){
+        // for simplicity reason, we didn't implement this
+        // };
         DeviceEntity entity = new DeviceEntity();
         BeanUtils.copyProperties(request, entity);
         entity.setId(UUID.randomUUID().toString());

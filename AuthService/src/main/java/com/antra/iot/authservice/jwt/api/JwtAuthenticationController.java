@@ -5,6 +5,7 @@ import com.antra.iot.authservice.jwt.JwtResponse;
 import com.antra.iot.authservice.jwt.JwtTokenUtil;
 import com.antra.iot.authservice.pojo.Customer;
 import com.antra.iot.authservice.service.CustomerValidationService;
+import io.jsonwebtoken.Claims;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,11 @@ public class JwtAuthenticationController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<?> validateToken(@RequestBody JwtToken request) {
+    public ResponseEntity<Claims> validateToken(@RequestBody JwtToken request) {
         if (jwtTokenUtil.validateToken(request.getToken())) {
-            return ResponseEntity.ok("Valid");
+            return ResponseEntity.ok(jwtTokenUtil.getAllClaimsFromToken(request.getToken()));
         }
-        return ResponseEntity.status(401).body("Invalid");
+        return ResponseEntity.status(401).build();
     }
 
 }

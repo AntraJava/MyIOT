@@ -1,19 +1,23 @@
 import {Injectable} from '@angular/core';
-import {
-    HttpEvent, HttpRequest, HttpHandler,
-    HttpInterceptor, HttpErrorResponse
-} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {retry, catchError} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
+
+
+    constructor(private router: Router) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
             // retry(1),
             catchError((error: HttpErrorResponse) => {
-                console.error('ServerErrorInterceptor got an error');
+                if(error.status === 401 || error.status === 500){
+                    alert('Error!')
+                    this.router.navigate(['/home']);
+                }
                 return throwError(error);
             })
         );

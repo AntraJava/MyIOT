@@ -20,7 +20,9 @@ logging:
   level:
     com:
       antra: debug
-
+web:
+  server:
+    url: "http://localhost:4200"
 #spring:
 #  jpa:
 #    hibernate:

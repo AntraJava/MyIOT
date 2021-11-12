@@ -1,7 +1,9 @@
 package com.antra.myiot.apigateway;
 
 import com.antra.myiot.apigateway.jwt.JwtAuthenticationFilter;
+import com.antra.myiot.apigateway.jwt.WebSocketAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -19,14 +21,20 @@ public class RouteConfig {
 
     @Autowired
     JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    WebSocketAuthenticationFilter webSocketAuthenticationFilter;
+
+
     @Bean
-    public CorsWebFilter corsWebFilter() {
+    public CorsWebFilter corsWebFilter(@Value("${web.server.url}") String webServerUrl) {
 
         final CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.setAllowedOrigins(Collections.singletonList("*"));
+        corsConfig.setAllowedOrigins(Collections.singletonList(webServerUrl));
         corsConfig.setMaxAge(3600L);
-        corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTION"));
         corsConfig.addAllowedHeader("*");
+        corsConfig.setAllowCredentials(true);
 
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfig);
@@ -44,6 +52,7 @@ public class RouteConfig {
                 .route(r -> r.path("/home/**").and().method(HttpMethod.GET).uri("lb://IotHomeService"))
                 .route(r -> r.path("/home/**").and().method(HttpMethod.POST).filters(f -> f.filter(jwtAuthenticationFilter)).uri("lb://IotHomeService"))
                 .route(r -> r.path("/device/**").and().method(HttpMethod.POST).filters(f -> f.filter(jwtAuthenticationFilter)).uri("lb://IotDeviceService"))
+                .route(r -> r.path("/ws/**").uri("lb://IotDeviceService"))
                 .route(r -> r.path("/authenticate","/validate").uri("lb://AuthService"))
                 .build();
     }
