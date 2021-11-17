@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(this.homeConfig);
         this.socket = new WebSocketAPI();
         this.socket.onMessageReceived = (msg) => {
-            alert(msg);
+            this.updateDevices(msg);
         };
         this.socket.connect(this.homeConfig.id);
     }
@@ -40,8 +40,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.socket.send(deviceControlRequest);
     }
 
-    ngOnDestroy(): void {
-        console.log("Disconnecting websocket....", this.homeConfig.id);
-        this.socket._disconnect();
+    updateDevices(msg) {
+        const body = JSON.parse(msg.body);
+        body.forEach(ds => {
+            const device = this.homeConfig.devices.find(device => device.id === ds.id);
+            device.status = ds.status;
+        });
     }
 }

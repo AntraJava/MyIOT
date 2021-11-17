@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Device} from '../../shared/entity/device';
+import {nextState} from "../../shared/utility/devide-util";
 
 @Component({
   selector: 'app-device',
@@ -18,5 +19,9 @@ export class DeviceComponent implements OnInit {
 
   control() {
     this.controlEvent.emit(this.device);
+  }
+
+  nextState(status: string) {
+    return nextState(status,"switch");
   }
 }
