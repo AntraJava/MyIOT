@@ -17,10 +17,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     constructor() {
     }
 
+
     ngOnInit(): void {
         console.log(this.homeConfig);
         this.socket = new WebSocketAPI();
+        this.socket.onMessageReceived = (msg) => {
+            alert(msg);
+        };
         this.socket.connect(this.homeConfig.id);
+    }
+
+    ngOnDestroy(): void {
+        this.socket.disconnect();
     }
 
     onAddNewDevice($event: Device) {

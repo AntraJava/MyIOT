@@ -3,12 +3,17 @@ package com.antra.iot.iotdeviceservice.service;
 import com.antra.iot.iotdeviceservice.api.pojo.DeviceVO;
 import com.antra.iot.iotdeviceservice.api.pojo.NewDeviceRequest;
 import com.antra.iot.iotdeviceservice.entity.DeviceEntity;
+import com.antra.iot.iotdeviceservice.entity.DeviceStatusDocument;
 import com.antra.iot.iotdeviceservice.repository.DeviceRepository;
+import com.antra.iot.iotdeviceservice.repository.DeviceStatusRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -16,9 +21,11 @@ import java.util.stream.Collectors;
 public class DeviceServiceImpl implements DeviceService {
 
     private DeviceRepository deviceRepository;
+    private DeviceStatusRepository deviceStatusRepository;
 
-    public DeviceServiceImpl(DeviceRepository deviceRepository) {
+    public DeviceServiceImpl(DeviceRepository deviceRepository, DeviceStatusRepository deviceStatusRepository) {
         this.deviceRepository = deviceRepository;
+        this.deviceStatusRepository = deviceStatusRepository;
     }
 
     @Override
@@ -33,6 +40,13 @@ public class DeviceServiceImpl implements DeviceService {
         DeviceEntity savedEntity = deviceRepository.save(entity);
         DeviceVO vo = new DeviceVO();
         BeanUtils.copyProperties(savedEntity, vo);
+        //status
+        DeviceStatusDocument status = new DeviceStatusDocument();
+        status.setStatus("off");
+        status.setDeviceId(entity.getId());
+        status.setHomeId(entity.getHomeId());
+        status.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+        deviceStatusRepository.save(status);
         return vo;
     }
 
@@ -44,6 +58,18 @@ public class DeviceServiceImpl implements DeviceService {
         List<DeviceEntity> devicesEntities = deviceRepository.findAll(example);
         return devicesEntities.stream().map(entity -> {
             DeviceVO vo = new DeviceVO();
+            BeanUtils.copyProperties(entity, vo);
+            return vo;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DeviceVO> getDevicesStatusByHomeId(String homeId) {
+        List<DeviceEntity> devices = deviceRepository.findAllByHomeId(homeId);
+        return devices.stream().filter(Objects::nonNull).map(entity -> {
+            DeviceStatusDocument status = deviceStatusRepository.findFirstByDeviceIdOrderByTimestampDesc(entity.getId());
+            DeviceVO vo = new DeviceVO();
+            vo.setStatus(status.getStatus());
             BeanUtils.copyProperties(entity, vo);
             return vo;
         }).collect(Collectors.toList());

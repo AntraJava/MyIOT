@@ -8,10 +8,9 @@ import {SignupComponent} from './components/signup/signup.component';
 import {NucleoiconsComponent} from './components/nucleoicons/nucleoicons.component';
 import {SigninComponent} from "./components/signin/signin.component";
 import {ControlBoardComponent} from "./components/control-board/control-board.component";
-import {AuthGuardService} from "./service/auth-guard.service";
 
 const routes: Routes =[
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: 'control', pathMatch: 'full' },
     { path: 'home',             component: ComponentsComponent },
     { path: 'signup',           component: SignupComponent },
     { path: 'login',           component: SigninComponent },

@@ -15,7 +15,6 @@ export class ServerErrorInterceptor implements HttpInterceptor {
             // retry(1),
             catchError((error: HttpErrorResponse) => {
                 if(error.status === 401 || error.status === 500){
-                    alert('Error!')
                     this.router.navigate(['/home']);
                 }
                 return throwError(error);

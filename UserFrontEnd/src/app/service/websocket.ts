@@ -16,15 +16,15 @@ export class WebSocketAPI {
         let ws = new SockJS(this.webSocketEndPoint);
         this.stompClient = Stomp.over(ws);
         const _this = this;
-        _this.stompClient.connect({token:localStorage.getItem('iotToken')}, function (frame) {
+        _this.stompClient.connect({token:localStorage.getItem('iotToken'), homeId:this.hId}, function (frame) {
             _this.stompClient.subscribe(_this.topic+"/"+homeId, function (sdkEvent) {
                 _this.onMessageReceived(sdkEvent);
-            });
+            }, {token:localStorage.getItem('iotToken'), homeId:homeId});
             //_this.stompClient.reconnect_delay = 2000;
         }, this.errorCallBack);
     };
 
-    _disconnect() {
+    disconnect() {
         if (this.stompClient !== null) {
             this.stompClient.disconnect();
         }

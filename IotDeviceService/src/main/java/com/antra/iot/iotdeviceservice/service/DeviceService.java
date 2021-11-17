@@ -9,4 +9,6 @@ public interface DeviceService {
     DeviceVO addDeviceToHome(NewDeviceRequest request);
 
     List<DeviceVO> getDevicesByHomeId(String homeId);
+
+    List<DeviceVO> getDevicesStatusByHomeId(String homeId);
 }
