@@ -1,17 +1,11 @@
 package com.antra.iot.iotdeviceservice.api;
 
-import com.antra.iot.iotdeviceservice.api.pojo.Customer;
-import com.antra.iot.iotdeviceservice.api.pojo.DeviceControlWebSocketRequest;
-import com.antra.iot.iotdeviceservice.api.pojo.DeviceVO;
-import com.antra.iot.iotdeviceservice.api.pojo.JwtToken;
+import com.antra.iot.iotdeviceservice.api.pojo.*;
 import com.antra.iot.iotdeviceservice.service.DeviceService;
-import com.antra.iot.iotdeviceservice.service.feign.AuthServiceClient;
-import com.antra.iot.iotdeviceservice.api.pojo.Home;
 import com.antra.iot.iotdeviceservice.service.feign.AuthServiceClient;
 import com.antra.iot.iotdeviceservice.service.feign.HomeServiceClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -24,8 +18,6 @@ import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -50,13 +42,11 @@ public class DeviceControlWebSocketController {
         String tokenStr = stompHeader.get("token").get(0);
         JwtToken jwtToken = new JwtToken();
         jwtToken.setToken(tokenStr);
-        ResponseEntity<Map<String,String>> customerClaimsByToken = this.authServiceClient.getCustomerClaimsByToken(jwtToken);
-        String username = customerClaimsByToken.getBody().get("username").toString(); //name , username , email, sub
+        Customer customer = this.authServiceClient.verifyToken(jwtToken).getBody();
+        String username = customer.getUsername(); //name , username , email, sub
         String homeId = stompHeader.get("homeId").get(0);
         log.info("WebSocket Subscribed by {} for homeId {}", username, homeId);
         sendHomeDeviceStatus(homeId);
-        this.authServiceClient = authServiceClient;
-        this.homeServiceClient = homeServiceClient;
     }
 
     @EventListener
@@ -69,8 +59,8 @@ public class DeviceControlWebSocketController {
         log.info("from device we got this : " + message);
         //verify token
         log.info("Verify device token : " + token);
-        Map<String, String> tokenRequest = new HashMap<>();
-        tokenRequest.put("token", token);
+        JwtToken tokenRequest = new JwtToken();
+        tokenRequest.setToken(token);
         Customer currentCustomer = this.authServiceClient.verifyToken(tokenRequest).getBody();
         log.info("Token is valid for user {}", currentCustomer);
         //compare user id home id
