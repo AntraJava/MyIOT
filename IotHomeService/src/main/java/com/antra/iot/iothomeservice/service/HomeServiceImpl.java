@@ -1,10 +1,10 @@
-package com.example.iothomeservice.service;
+package com.antra.iot.iothomeservice.service;
 
-import com.example.iothomeservice.api.pojo.Home;
-import com.example.iothomeservice.api.pojo.NewHomeRequest;
-import com.example.iothomeservice.entity.HomeEntity;
-import com.example.iothomeservice.repository.HomeRepository;
-import com.example.iothomeservice.service.feign.DeviceServiceClient;
+import com.antra.iot.iothomeservice.api.pojo.Home;
+import com.antra.iot.iothomeservice.api.pojo.NewHomeRequest;
+import com.antra.iot.iothomeservice.entity.HomeEntity;
+import com.antra.iot.iothomeservice.repository.HomeRepository;
+import com.antra.iot.iothomeservice.service.feign.DeviceServiceClient;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -67,5 +67,17 @@ public class HomeServiceImpl implements HomeService {
             h.setLocationInfo(entity.getLocationInfo());
             return h;
         }).orElseGet(null);
+    }
+
+    @Override
+    public Home getHomeDetailById(String hId) {
+        Home h = new Home();
+        homeRepository.findById(hId).ifPresent(
+                entity -> {
+                    BeanUtils.copyProperties(entity, h);
+                    h.setDevices(deviceServiceClient.getDevicesByHomeId(h.getId()).getBody());
+                }
+        );
+        return h;
     }
 }

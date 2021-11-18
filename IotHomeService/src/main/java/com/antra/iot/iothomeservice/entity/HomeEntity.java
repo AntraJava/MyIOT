@@ -1,4 +1,4 @@
-package com.example.iothomeservice.entity;
+package com.antra.iot.iothomeservice.entity;
 
 import lombok.Getter;
 import lombok.Setter;

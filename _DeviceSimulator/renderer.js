@@ -5,7 +5,6 @@ const { ipcRenderer } = require('electron')
 const kafka = require('./kafka/kafka-client')
 
 const notifyServer = (id, status, homeId)=>{
-    status = status === 'on'?'off':'on';
     console.log("send message to server", id, status);
     const message = {deviceId:id, deviceState:status, homeId:homeId};
     const payload = {key: homeId, value:JSON.stringify(message)};
@@ -83,15 +82,17 @@ const addDevice = (device, homeId) => {
     newDevice.text="ON";
     newDevice.addEventListener("click", function (e) {
         //          sound.play("click2.mp3");
-        notifyServer(device.id, this.className, homeId).then(()=>this.classList.toggle("on"));
-
+        notifyServer(device.id, this.className === 'on'?'off':'on', homeId).then(()=>this.classList.toggle("on"));
         e.preventDefault();
     });
+    // this should never happen, server always return off. for future.
     if(device.state === 'on') newDevice.setAttribute("class","on");
     const newSpan = document.createElement("span");
     newSection.appendChild(newP);
     newSection.appendChild(newDevice);
     newSection.appendChild(newSpan);
     element.appendChild(newSection);
+    // we tell the server to reset all devices.
+    notifyServer(device.id, "off", homeId);
 }
 

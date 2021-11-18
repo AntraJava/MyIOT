@@ -1,4 +1,4 @@
-package com.example.iothomeservice.api.pojo;
+package com.antra.iot.iothomeservice.api.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

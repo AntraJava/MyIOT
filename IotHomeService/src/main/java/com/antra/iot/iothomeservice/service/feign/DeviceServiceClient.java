@@ -1,6 +1,6 @@
-package com.example.iothomeservice.service.feign;
+package com.antra.iot.iothomeservice.service.feign;
 
-import com.example.iothomeservice.api.pojo.Device;
+import com.antra.iot.iothomeservice.api.pojo.Device;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;

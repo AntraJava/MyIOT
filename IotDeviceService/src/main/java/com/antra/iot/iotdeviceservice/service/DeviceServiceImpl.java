@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 @Service
 public class DeviceServiceImpl implements DeviceService {
 
-    private DeviceRepository deviceRepository;
-    private DeviceStatusRepository deviceStatusRepository;
+    private final DeviceRepository deviceRepository;
+    private final DeviceStatusRepository deviceStatusRepository;
 
     public DeviceServiceImpl(DeviceRepository deviceRepository, DeviceStatusRepository deviceStatusRepository) {
         this.deviceRepository = deviceRepository;
@@ -46,6 +46,7 @@ public class DeviceServiceImpl implements DeviceService {
         status.setDeviceId(entity.getId());
         status.setHomeId(entity.getHomeId());
         status.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+        status.setCreatedBy("Web");
         deviceStatusRepository.save(status);
         return vo;
     }

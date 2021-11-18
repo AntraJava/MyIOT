@@ -33,7 +33,8 @@ export class WebSocketAPI {
 
     // on error, schedule a reconnection attempt
     errorCallBack(error) {
-        console.log("errorCallBack -> " + error)
+        console.log("errorCallBack -> " + error);
+        alert("Lost connection to server, please refresh the page");
         setTimeout(() => {
             this.connect(this.hId);
         }, 5000);

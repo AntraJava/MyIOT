@@ -11,4 +11,5 @@ public class DeviceStatusDocument {
     private String homeId;
     private String status;
     private Long timestamp;
+    private String createdBy;
 }

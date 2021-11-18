@@ -1,4 +1,4 @@
-package com.example.iothomeservice;
+package com.antra.iot.iothomeservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
