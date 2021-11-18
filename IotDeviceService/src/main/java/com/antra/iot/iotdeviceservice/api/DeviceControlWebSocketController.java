@@ -1,6 +1,7 @@
 package com.antra.iot.iotdeviceservice.api;
 
 import com.antra.iot.iotdeviceservice.api.pojo.*;
+import com.antra.iot.iotdeviceservice.service.DeviceControlService;
 import com.antra.iot.iotdeviceservice.service.DeviceService;
 import com.antra.iot.iotdeviceservice.service.feign.AuthServiceClient;
 import com.antra.iot.iotdeviceservice.service.feign.HomeServiceClient;
@@ -19,6 +20,7 @@ import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -28,12 +30,14 @@ public class DeviceControlWebSocketController {
     private final AuthServiceClient authServiceClient;
     private final DeviceService deviceService;
     private final HomeServiceClient homeServiceClient;
+    private final DeviceControlService deviceControlService;
 
-    public DeviceControlWebSocketController(SimpMessagingTemplate messageTemplate, AuthServiceClient authServiceClient, HomeServiceClient homeServiceClient, DeviceService deviceService) {
+    public DeviceControlWebSocketController(SimpMessagingTemplate messageTemplate, AuthServiceClient authServiceClient, DeviceService deviceService, HomeServiceClient homeServiceClient, DeviceControlService deviceControlService) {
         this.messageTemplate = messageTemplate;
         this.authServiceClient = authServiceClient;
         this.deviceService = deviceService;
         this.homeServiceClient = homeServiceClient;
+        this.deviceControlService = deviceControlService;
     }
 
     @EventListener
@@ -65,6 +69,16 @@ public class DeviceControlWebSocketController {
         log.info("Token is valid for user {}", currentCustomer);
         //compare user id home id
         Home home = homeServiceClient.getHomeById(message.getHomeId()).getBody();
+        if (Objects.isNull(currentCustomer) || Objects.isNull(home)) {
+            log.error("Bad Request");
+        }
+        if (Objects.equals(currentCustomer.getId(), home.getOwnerId())) {
+            log.info("Ready to control device {}", message.getDeviceId());
+            List<DeviceVO> result = deviceControlService.processControl(message);
+            this.messageTemplate.convertAndSend("/queue/home/" + message.getHomeId(), result);
+        } else {
+            log.error("Customer {} cannot control home {}", currentCustomer.getId(), home.getId());
+        }
         //this.messageTemplate.convertAndSend("/queue/home/" + message.getHomeId(), new HashMap<String,String>(){{put("a","B");}});
     }
 

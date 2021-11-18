@@ -9,6 +9,6 @@ public class DeviceControlWebSocketRequest {
     private String cmd;
     private String homeId;
     private String deviceId;
-    private String state;
+    private String status;
     private Map<String,String> data;
 }

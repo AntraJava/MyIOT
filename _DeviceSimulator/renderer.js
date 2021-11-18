@@ -16,9 +16,9 @@ const updateDevice = (data) =>{
     console.log('Got message from server: ',data);
     const deviceDom = document.getElementById(data.deviceId);
     if(deviceDom) {
-        if (data.state === 'on') {
+        if (data.status === 'on') {
             deviceDom.setAttribute("class", "on");
-        } else if (data.state === 'off') {
+        } else if (data.status === 'off') {
             deviceDom.removeAttribute("class");
         }
         // console.log(deviceDom.classList);

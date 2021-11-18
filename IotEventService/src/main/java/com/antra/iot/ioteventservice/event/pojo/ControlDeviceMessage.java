@@ -3,15 +3,15 @@ package com.antra.iot.ioteventservice.event.pojo;
 public class ControlDeviceMessage {
     private String homeId;
     private String deviceId;
-    private String state;
+    private String status;
 
     public ControlDeviceMessage() {
     }
 
-    public ControlDeviceMessage(String homeId, String deviceId, String state) {
+    public ControlDeviceMessage(String homeId, String deviceId, String status) {
         this.homeId = homeId;
         this.deviceId = deviceId;
-        this.state = state;
+        this.status = status;
     }
 
     public String getHomeId() {
@@ -30,11 +30,11 @@ public class ControlDeviceMessage {
         this.deviceId = deviceId;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

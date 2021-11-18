@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Device} from '../../shared/entity/device';
-import {nextState} from "../../shared/utility/devide-util";
+import {nextState} from "../../shared/utility/device-util";
 
 @Component({
   selector: 'app-device',

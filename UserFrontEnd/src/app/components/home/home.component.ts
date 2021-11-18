@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HomeConfig} from "../../shared/entity/home-config";
 import {Device} from "../../shared/entity/device";
 import {WebSocketAPI} from "../../service/websocket";
+import {nextState} from "../../shared/utility/device-util";
 
 @Component({
     selector: 'app-home',
@@ -36,7 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     sendControlToServer($event) {
-        let deviceControlRequest = {cmd:"control",homeId:this.homeConfig.id, deviceId: $event.id, state: $event.state};
+        let deviceControlRequest = {cmd:"control",homeId:this.homeConfig.id, deviceId: $event.id, status: nextState($event.status)};
         this.socket.send(deviceControlRequest);
     }
 
@@ -44,6 +45,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         const body = JSON.parse(msg.body);
         body.forEach(ds => {
             const device = this.homeConfig.devices.find(device => device.id === ds.id);
+            console.log("here we go .............................", ds.status);
+
             device.status = ds.status;
         });
     }

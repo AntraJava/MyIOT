@@ -12,5 +12,5 @@ public class Device {
     private String type;
     private String name;
     private String serialNum;
-    private String state;
+    private String status;
 }
