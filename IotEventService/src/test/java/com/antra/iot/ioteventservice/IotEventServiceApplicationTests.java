@@ -1,5 +1,6 @@
 package com.antra.iot.ioteventservice;
 
+import com.antra.iot.ioteventservice.service.ControlDeviceService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -45,8 +45,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         const body = JSON.parse(msg.body);
         body.forEach(ds => {
             const device = this.homeConfig.devices.find(device => device.id === ds.id);
-            console.log("here we go .............................", ds.status);
-
             device.status = ds.status;
         });
     }

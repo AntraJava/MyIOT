@@ -1,8 +1,8 @@
 package com.antra.iot.ioteventservice.api;
 
-import com.antra.iot.ioteventservice.ControlDeviceService;
 import com.antra.iot.ioteventservice.api.pojo.DeviceControlRequest;
 import com.antra.iot.ioteventservice.api.pojo.DeviceVO;
+import com.antra.iot.ioteventservice.service.ControlDeviceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

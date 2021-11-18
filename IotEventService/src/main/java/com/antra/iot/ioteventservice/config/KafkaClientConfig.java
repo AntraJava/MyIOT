@@ -1,5 +1,6 @@
 package com.antra.iot.ioteventservice.config;
 
+import com.antra.iot.ioteventservice.api.pojo.DeviceControlRequest;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,8 +25,8 @@ public class KafkaClientConfig {
     public static final String GROUP_ID = "group1";
 
     @Bean
-    public ConsumerFactory<String, Object> consumerFactory() {
-        JsonDeserializer<Object> deserializer = new JsonDeserializer<>(Object.class);
+    public ConsumerFactory<String, DeviceControlRequest> consumerFactory() {
+        JsonDeserializer<DeviceControlRequest> deserializer = new JsonDeserializer<>(DeviceControlRequest.class);
         deserializer.setRemoveTypeHeaders(false);
         deserializer.addTrustedPackages("*");
         deserializer.setUseTypeMapperForKey(true);
@@ -48,8 +49,8 @@ public class KafkaClientConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, Object> factory =
+    public ConcurrentKafkaListenerContainerFactory<String, DeviceControlRequest> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, DeviceControlRequest> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;

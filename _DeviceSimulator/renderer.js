@@ -6,7 +6,7 @@ const kafka = require('./kafka/kafka-client')
 
 const notifyServer = (id, status, homeId)=>{
     console.log("send message to server", id, status);
-    const message = {deviceId:id, deviceState:status, homeId:homeId};
+    const message = {deviceId:id, status:status, homeId:homeId};
     const payload = {key: homeId, value:JSON.stringify(message)};
     return kafka.sendMessage(process.env.TOPIC_STATE_CHANGE, payload);
 }
