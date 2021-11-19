@@ -31,6 +31,7 @@ public class DeviceControlServiceImpl implements DeviceControlService {
         status.setDeviceId(message.getDeviceId());
         status.setHomeId(message.getHomeId());
         status.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+        status.setCreatedBy("Web");
         deviceStatusRepository.save(status);
 // notify event service to send msg to device
         DeviceControlRequest controlRequest = new DeviceControlRequest();

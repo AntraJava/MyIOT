@@ -30,6 +30,7 @@ public class DeviceUpdateServiceImpl implements DeviceUpdateService {
         status.setDeviceId(request.getDeviceId());
         status.setHomeId(request.getHomeId());
         status.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+        status.setCreatedBy("IOT");
         deviceStatusRepository.save(status);
 
         List<DeviceVO> devicesStatusList = new ArrayList<>();
