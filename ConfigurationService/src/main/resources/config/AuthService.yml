@@ -3,4 +3,4 @@ server:
 
 jwt:
   secret: mysecret
-  validity: 36000`
+  validity: 36000
