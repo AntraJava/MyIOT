@@ -3,11 +3,11 @@
     border-radius: 8px;
     color: #fff;
     max-width: 300px;
-    min-width: 250px;
-    min-height: 250px;
-    padding: 30px;
+    min-width: 180px;
+    min-height: 180px;
+    padding: 10px;
     z-index: 0;
-    margin: 20px;
+    margin: 10px;
 }
 
 .light-up {
