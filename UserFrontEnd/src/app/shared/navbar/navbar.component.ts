@@ -11,7 +11,7 @@ import {BusService} from '../../service/bus.service';
 export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
-    greeting = ()=> this.authService.getCurrentUser()?.name;
+    greeting = ()=> this.isControl()?this.authService.getCurrentUser()?.name:'';
 
 
     constructor(public location: Location, private element : ElementRef, private authService: AuthService, private busService:BusService) {
