@@ -33,6 +33,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     onAddNewDevice($event: Device) {
+        if (this.homeConfig.devices == undefined) {
+            this.homeConfig.devices = [];
+        }
         this.homeConfig.devices.push($event);
     }
 
