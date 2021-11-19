@@ -40,6 +40,7 @@ public class DeviceServiceImpl implements DeviceService {
         DeviceEntity savedEntity = deviceRepository.save(entity);
         DeviceVO vo = new DeviceVO();
         BeanUtils.copyProperties(savedEntity, vo);
+        vo.setStatus("off");
         //status
         DeviceStatusDocument status = new DeviceStatusDocument();
         status.setStatus("off");
