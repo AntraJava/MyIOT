@@ -23,7 +23,11 @@ logging:
 web:
   server:
     url: "http://localhost:4200"
+
 spring:
   jpa:
     hibernate:
       ddl-auto: update
+  sleuth:
+    sampler:
+      probability: 1.0

@@ -19,7 +19,6 @@
         <module>IotEventService</module>
         <module>IotHomeService</module>
         <module>AuthService</module>
-        <module>IotHomeService</module>
     </modules>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
