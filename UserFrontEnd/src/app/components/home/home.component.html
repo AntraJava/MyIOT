@@ -1,7 +1,7 @@
 <div class="content-center">
     <div class="container">
         <h2 class="text-warning text-center font-weight-bold">
-            <span>{{homeConfig.name}}</span>
+            <span class="home-name">{{homeConfig.name}}</span>
             <p>{{homeConfig.id}}</p>
             <p *ngIf="!homeConfig.devices || homeConfig.devices.length == 0" class="text-warning">Click button below to add device</p>
             <app-add-device [homeId]="homeConfig.id" class="text-danger" (newDevice)="onAddNewDevice($event)"></app-add-device>
