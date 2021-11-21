@@ -1,6 +1,6 @@
 .card-device {
     background-color: rgba(50, 62, 75, 0.7);
-    border-radius: 8px;
+    border-radius: 30px;
     color: #fff;
     max-width: 300px;
     min-width: 180px;
@@ -11,7 +11,7 @@
 }
 
 .light-up {
-    background: rgb(239, 233, 60);
-    background: radial-gradient(circle, rgb(238, 181, 46) 0%, rgba(179, 176, 176, 0.75) 100%);
+    background: rgb(249,240,0);
+    background: radial-gradient(circle, rgb(252, 244, 100) 0%, rgb(255, 247, 75) 45%, rgba(255, 255, 255, 0.62) 100%);
     color: #2f2222;
 }

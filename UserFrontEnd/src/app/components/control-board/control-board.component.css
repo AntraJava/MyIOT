@@ -3,6 +3,9 @@
     min-height: 60%;
     overflow-y: auto;
 }
+.container {
+    min-height: 400px;
+}
 ::-webkit-scrollbar {
     width: 12px;
 }
