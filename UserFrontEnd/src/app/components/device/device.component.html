@@ -1,6 +1,7 @@
 <div class="card-device" [class.light-up]="device.status === 'on'">
     <h4>{{device.name}}</h4>
-        <label>{{device.serialNum}}</label>
+        <p>{{device.serialNum}}</p>
 
-        <button class="btn btn-danger btn-block btn-round" (click)="control()">Turn {{nextState(device.status)}}</button>
+<!--        <button class="btn btn-danger btn-block btn-round" (click)="control()">Turn {{nextState(device.status)}}</button>-->
+        <bSwitch [switch-on-color]="'success'" [ngModel]="device.status === 'on'" (click)="control()"></bSwitch>
 </div>

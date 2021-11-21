@@ -14,8 +14,7 @@ export class DeviceComponent implements OnInit {
   @Output() controlEvent: EventEmitter<Device> = new EventEmitter<Device>();
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   control() {
     this.controlEvent.emit(this.device);
