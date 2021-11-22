@@ -39,7 +39,7 @@ public class DeviceUpdateServiceImpl implements DeviceUpdateService {
         vo.setHomeId(request.getHomeId());
         vo.setStatus(request.getStatus());
         devicesStatusList.add(vo);
-        this.messageTemplate.convertAndSend("/queue/home/" + request.getHomeId(), devicesStatusList);
+        this.messageTemplate.convertAndSend("/topic/home." + request.getHomeId(), devicesStatusList);
         return vo;
     }
 }

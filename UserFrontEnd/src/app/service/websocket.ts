@@ -5,7 +5,7 @@ import {environment} from "../../environments/environment";
 export class WebSocketAPI {
 
     webSocketEndPoint: string = environment.baseUrl+'/ws';
-    topic: string = "/queue/home";
+    topic: string = "/topic/home";
     stompClient: any;
     private hId:string;
     constructor() {}
@@ -17,7 +17,7 @@ export class WebSocketAPI {
         this.stompClient = Stomp.over(ws);
         const _this = this;
         _this.stompClient.connect({token:localStorage.getItem('iotToken'), homeId:this.hId}, function (frame) {
-            _this.stompClient.subscribe(_this.topic+"/"+homeId, function (sdkEvent) {
+            _this.stompClient.subscribe(_this.topic+"."+homeId, function (sdkEvent) {
                 _this.onMessageReceived(sdkEvent);
             }, {token:localStorage.getItem('iotToken'), homeId:homeId});
             //_this.stompClient.reconnect_delay = 2000;

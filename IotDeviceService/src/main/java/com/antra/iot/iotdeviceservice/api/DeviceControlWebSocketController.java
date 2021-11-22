@@ -75,16 +75,15 @@ public class DeviceControlWebSocketController {
         if (Objects.equals(currentCustomer.getId(), home.getOwnerId())) {
             log.info("Ready to control device {}", message.getDeviceId());
             List<DeviceVO> result = deviceControlService.processControl(message);
-            this.messageTemplate.convertAndSend("/queue/home/" + message.getHomeId(), result);
+            this.messageTemplate.convertAndSend("/home." + message.getHomeId(), result);
         } else {
             log.error("Customer {} cannot control home {}", currentCustomer.getId(), home.getId());
         }
-        //this.messageTemplate.convertAndSend("/queue/home/" + message.getHomeId(), new HashMap<String,String>(){{put("a","B");}});
     }
 
     private void sendHomeDeviceStatus(String homeId) {
         List<DeviceVO> devicesStatusList = this.deviceService.getDevicesStatusByHomeId(homeId);
-        this.messageTemplate.convertAndSend("/queue/home/" + homeId, devicesStatusList);
+        this.messageTemplate.convertAndSend("/home." + homeId, devicesStatusList);
     }
 
     @MessageExceptionHandler

@@ -21,3 +21,11 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  rabbitMQ:
+    image: rabbitmq_iot
+    ports:
+      - 15672:15672
+      - 5672:5672
+      - 61613:61613
+    container_name: rabbitMQ_new
