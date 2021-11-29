@@ -4,7 +4,6 @@ docker start mysql_new
 echo "Starting MongoDB..."
 docker start mongodb_new
 echo "Starting Kafka....."
-cd ./_config_kafka || (echo "ERROR! Cannot find kafka config" && exit 1)
 docker-compose start
 echo "Starting Zipkin....."
 docker start zipkin_new
@@ -25,11 +24,11 @@ if [[ $containers == *"rabbitMQ_new"* ]]; then
   echo "RabbitMQ is running.."
   else echo "ERROR: RabbitMQ is NOT running, exiting..." && exit 1
 fi
-if [[ $containers == *"config_kafka_kafka_1"* ]]; then
+if [[ $containers == *"kafka_new"* ]]; then
   echo "Kafka is running.."
   else echo "ERROR: Kafka is NOT running, Try to run this script again, exiting..." && exit 1
 fi
-if [[ $containers == *"config_kafka_zookeeper_1"* ]]; then
+if [[ $containers == *"zookeeper_new"* ]]; then
   echo "Zookeeper is running.."
   else echo "ERROR: Zookeeper is NOT running, exiting..." && exit 1
 fi

@@ -7,6 +7,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - 22181:2181
+    container_name: zookeeper_new
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -21,6 +22,7 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    container_name: kafka_new
 
   rabbitMQ:
     image: rabbitmq_iot
@@ -29,3 +31,9 @@ services:
       - 5672:5672
       - 61613:61613
     container_name: rabbitMQ_new
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    container_name: zipkin_new

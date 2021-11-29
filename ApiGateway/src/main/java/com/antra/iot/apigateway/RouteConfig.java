@@ -1,7 +1,7 @@
-package com.antra.myiot.apigateway;
+package com.antra.iot.apigateway;
 
-import com.antra.myiot.apigateway.jwt.JwtAuthenticationFilter;
-import com.antra.myiot.apigateway.jwt.WebSocketAuthenticationFilter;
+import com.antra.iot.apigateway.jwt.JwtAuthenticationFilter;
+import com.antra.iot.apigateway.jwt.WebSocketAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.RouteLocator;

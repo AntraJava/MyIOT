@@ -1,4 +1,4 @@
-package com.antra.myiot.apigateway.jwt;
+package com.antra.iot.apigateway.jwt;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

@@ -1,6 +1,5 @@
-package com.antra.myiot.apigateway.jwt;
+package com.antra.iot.apigateway.jwt;
 
-import com.antra.myiot.apigateway.jwt.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

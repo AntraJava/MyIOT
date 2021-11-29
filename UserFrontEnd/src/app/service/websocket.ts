@@ -20,7 +20,7 @@ export class WebSocketAPI {
             _this.stompClient.subscribe(_this.topic+"."+homeId, function (sdkEvent) {
                 _this.onMessageReceived(sdkEvent);
             }, {token:localStorage.getItem('iotToken'), homeId:homeId});
-            //_this.stompClient.reconnect_delay = 2000;
+            _this.stompClient.reconnect_delay = 2000;
         }, this.errorCallBack);
     };
 
