@@ -14,3 +14,17 @@
 
 # Useful URLs
 API Route Url : http://localhost:9090/actuator/gateway/routes
+
+
+# Angular Frontend Setup
+* Install Node
+* Install Angular-CLI
+* cd into UserFrontEnd folder
+* Run `npm install --force`
+* `ng serve` or use IntelliJ build-in tool to run the project
+
+# Device Simulator Setup
+* Setup Angular first, then
+* cd into _device_simulator
+* `npm install`
+* `npm start`

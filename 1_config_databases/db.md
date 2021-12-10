@@ -48,7 +48,7 @@
 * Create new user `CREATE USER 'iot_user'@'%' IDENTIFIED WITH mysql_native_password BY 'aabbccdd';`
 * Grant privileges `GRANT ALL PRIVILEGES ON *.* TO 'iot_user'@'%' WITH GRANT OPTION;`
 * Flush the privileges `FLUSH PRIVILEGES;`
-* Create a new database `create databasee iot;`
+* Create a new database `create database iot;`
 * Now we have a MySQL with 
   - `iot_user/aabbccdd`
   - `localhost:3306`

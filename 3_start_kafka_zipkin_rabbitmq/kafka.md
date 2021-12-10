@@ -2,11 +2,10 @@
 
  - Install `docker-compose`
  - `docker-compose -v` should return the version
- - Under the _**_Config_Kafka**_ folder, run `docker-compose up`
- - kafka will be created and started 
 
-# Start Kafka after the 1st time
- - Under the **__Config_Kafka_** folder, run `docker-compose start`
+# Start Kafka, RabbitMQ and Zipkin
+ - First Build the rabbitMQ Image following [rabbitMQ.md](../_config_rabbitmq/rabbitmq.md)
+ - Under the **project root** folder(where the docker-compose.yml file is), run `docker-compose up` or `docker-compose start`
  - kafka will be started. No new containers will be created this time.
 
 # Exit
