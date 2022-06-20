@@ -1,7 +1,7 @@
 # Installation
 ### DB
 * MongoDB and MySQL should be installed using docker.
-* Check [db.md](_config_databases/db.md) for detailed instructions
+* Check [db.md](1_config_databases/db.md) for detailed instructions
 
 ### Apache Kafka and RabbitMQ
 * Apache Kafka and RabbitMQ should be installed using docker.
