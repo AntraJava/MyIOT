@@ -32,8 +32,8 @@ services:
       - 61613:61613
     container_name: rabbitMQ_new
 
-#  zipkin:
-#    image: openzipkin/zipkin
-#    ports:
-#      - 9411:9411
-#    container_name: zipkin_new
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+    container_name: zipkin_new
