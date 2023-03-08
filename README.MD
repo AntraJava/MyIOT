@@ -20,7 +20,7 @@ API Route Url : http://localhost:9090/actuator/gateway/routes
 * Install Node
 * Install Angular-CLI
 * cd into UserFrontEnd folder
-* Run `npm install --force`
+* Run `npm install --legacy-peer-deps`
 * `ng serve` or use IntelliJ build-in tool to run the project
 
 # Device Simulator Setup
